@@ -27,28 +27,41 @@ function tableHead(){
      <th scope="col">sno</th>
      <th scope="col">ID</th>
      <th scope="col">Tag name</th>
-     <th scope="col">view</th>
+     <th scope="col">click to view</th>
    </tr>`
    table_head.innerHTML=table;
 }
-
+let h6 = document.getElementById("h6")
 let all_cat_list = document.getElementById("all_cat_list")
-all_cat_list.addEventListener("click",()=>{
-    displayDetails(json_arry)
+
+all_cat_list.addEventListener("mouseover", ()=>{
+  h6.innerHTML="This might take few seconds please wait"
+  
 })
+
+
+all_cat_list.addEventListener("click",()=>{
+ 
+    displayDetails(json_arry)
+    h6.innerHTML="click to view the cat list"
+})
+
+
 
 let displayDetails =(json_arry)=>{
     let table_body = document.getElementById("table_body")
     let tablerow=""
     tableHead();
+    var i =0;
     for(let arr of json_arry){
+      if( i<270){
         tablerow +=`
         <tr value="${arr.id}" class="img_2">
-        <td>${arr.tags}</td>
+        <td>${i}</td>
         <td >${arr.id}</td>
         <td>${arr.tags}</td>
         <td>
-        <button id="myBtn" onclick=popup(this)>Open Modal</button>
+        <button id="myBtn" onclick=popup(this) class="btn btn-primary btn-lg active">view</button>
         <img src="https://cataas.com/cat/${arr.id}"> 
         
         </td>
@@ -57,8 +70,15 @@ let displayDetails =(json_arry)=>{
        
           `;
         table_body.innerHTML=tablerow
+        i++
+    }else{
+             break;
     }
-}
+  }
+
+    
+    }
+
 
 let search_txt_Box = document.getElementById("search_Box")
 let search = document.getElementById("search")
@@ -67,17 +87,18 @@ search.addEventListener("click" , ()=>{
        let table_body = document.getElementById("table_body")
     let tablerow=""
     tableHead();
+    let sno=1;
     if(enteredValue!=""){
        for(let arr of json_arry){
            for(let filter of arr.tags){
                if(filter==enteredValue){
                 tablerow +=`
                 <tr value="${arr.id}" class="img_2">
-              <td>${arr.tags}</td>
+              <td>${sno}</td>
               <td >${arr.id}</td>
               <td>${arr.tags}</td>
               <td>
-              <button id="myBtn" onclick=popup(this)>Open Modal</button>
+              <button id="myBtn" onclick=popup(this) class="btn btn-primary btn-lg active">view</button>
               <img src="https://cataas.com/cat/${arr.id}"> 
               
               </td>
@@ -86,6 +107,7 @@ search.addEventListener("click" , ()=>{
              
                 `;
                 table_body.innerHTML=tablerow
+                sno++
             }
 
                }
@@ -95,23 +117,13 @@ search.addEventListener("click" , ()=>{
 })
 
 
-
-
 var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
 var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-
-
 var model_content = document.getElementById("res")
-
-// When the user clicks the button, open the modal 
 function popup(r) {
   var i = r.parentNode.parentNode.rowIndex;
  let ans= document.getElementsByClassName("img_2")[i-1].getAttribute("value")
-  //console.log(ans)
+ 
   var a = `   <span class="close" id ="span">
   &times;</span>
   <img src="https://cataas.com/cat/${ans}" style="width: 300px;height: 300px;">;`
@@ -119,7 +131,7 @@ function popup(r) {
   model_content.innerHTML= a;
   modal.style.display = "block";
 
-// When the user clicks on <span> (x), close the modal
+
 let span = document.getElementById("span")
  span.onclick=()=>{
   modal.style.display = "none";
@@ -127,8 +139,6 @@ let span = document.getElementById("span")
  
 }
 
-
-// When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
