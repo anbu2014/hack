@@ -10,18 +10,17 @@
        
     </head>
     <body>
-        
-    
+        <h1>Welcome to cat API</h1>
         <section>
-            <button id = all_cat_list>All cat list</button>
-            
-            <br><br>
-            <form action="#">
-                <input type="search" name="" id="search_Box" placeholder="searchByTagNameHere"> 
-                 <button id ="search">search</button> <br>
-              
-                <table class="table">
-                    <thead id = "table_head">
+            <form action="#" id="form">
+              <h6 id="h6"> click to view the cat list</h6><button id = "all_cat_list" class="btn btn-primary btn-lg active">All cat list</button><br><br>
+                <input type="search" class="form-control" name="" id="search_Box" placeholder="searchByTagNameHere"> 
+                 <button id ="search" class="btn btn-primary btn-lg active">search</button> <br><br>
+                
+              <br><br>
+                <table class="table table-bordered table-hover " id ="table">
+                   
+                    <thead id = "table_head" class="thead-dark">
                         
                       </thead>
                       <tbody id = "table_body"></tbody>
@@ -29,23 +28,10 @@
                 
             </form>
         </section>
-       
 
-       
-        
-        
         <div id="myModal" class="modal">
-        
-         
           <div class="modal-content" id="res">
-          
-            <span class="close" id ="span">
-                <button onclick=close(this)>close</button></span>
-                 <img src="https://cataas.com/cat" style="width: 300px;height: 300px;">;
-  
-           
           </div>
-        
         </div>
     
 
